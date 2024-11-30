@@ -1,4 +1,12 @@
--- You don't always need this, it just helps ensure repeatability.
+/**
+  * This file generates synthetic data for experimenting with.
+  * 
+  * It is not essential to fully understand this code here - it's pretty niche (you'll rarely
+  * find that you need to generate synthetic data). Feel free to follow along.
+  */
+
+
+-- You don't always need this, it just helps ensure repeatability if you run the whole file.
 USE ROLE ACCOUNTADMIN;
 
 -- Create the database for our schema
@@ -62,14 +70,15 @@ CREATE OR REPLACE TABLE BIZTECH_DEMO.CLF.STUDENT_GRADES AS
                 'High Performance' AS exam_performance
             
             FROM TABLE(GENERATOR(ROWCOUNT => 1000))
+
+            -- shuffle the data
             order by Random()
         );
 
 
--- Next let's create some other tables that we'll need when we train our machine learning model
-
--- This table is our training data for the ML model.
--- This data is passed to the model to help it learn
+/**
+  * Here we'll create some training data that we will use to train our model.
+  */
 CREATE OR REPLACE TABLE
     BIZTECH_DEMO.CLF.TRAINING_DATA
 AS
@@ -83,8 +92,10 @@ AS
     WHERE
         STUDENT_ID < 2000;
 
--- This is the test data. Our ML model will be used on this data
--- after training so we can see how good it is
+
+/**
+  * We pick out some test data here, which we will use to evaluate how well our model performs.
+  */
 CREATE OR REPLACE TABLE
     BIZTECH_DEMO.CLF.TEST_DATA
 AS
@@ -95,11 +106,12 @@ AS
     WHERE
         STUDENT_ID > 2000;
 
--- This helps us when we evaluate the model later on.
--- "Support" here is just a fancy way of saying "Count"
--- 
--- This data will just count up the students for each exam performance
--- category. 
+/**
+  * Later on when we want to calculate the accuracy of our model on each of the labels,
+  * we'll need to know how many instances of each label were in the test data set.
+  *
+  * That's exactly what this view is for.
+  */
 CREATE OR REPLACE VIEW
     BIZTECH_DEMO.CLF.TEST_DATA_SUPPORT
 AS
@@ -110,5 +122,3 @@ AS
         BIZTECH_DEMO.CLF.TEST_DATA
     GROUP BY
         EXAM_PERFORMANCE;
-
-        

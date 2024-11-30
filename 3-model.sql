@@ -84,11 +84,6 @@ AS
         PREDICTED_PERFORMANCE;
 
 /**
-  * Let's look at what we just made - how many in total did the model get right for each performance level?
-  */
-SELECT * FROM BIZTECH_DEMO.CLF.CORRECT_PREDICTIONS_COUNT;
-
-/**
   * When we generated all the data, we also counted up how many students there actually were that had each different
   * performance level. Now, we can calculate the some key metrics for this model for each of these performance levels.
   * 

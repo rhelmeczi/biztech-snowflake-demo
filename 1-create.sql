@@ -122,3 +122,5 @@ AS
         BIZTECH_DEMO.CLF.TEST_DATA
     GROUP BY
         EXAM_PERFORMANCE;
+
+SELECT 'All data was successfully created.' AS "Message";

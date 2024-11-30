@@ -1,5 +1,11 @@
 # UBC BizTech Snowflake Demo
 
+## Getting Started
+
+Go to https://www.snowflake.com/
+
+## Overview
+
 To demonstrate some of the capabilities of data warehouses in general, this repository provides
 some helper code to follow along with.
 
